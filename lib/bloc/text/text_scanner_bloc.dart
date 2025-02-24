@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ml_kit_test/bloc/text_scanner_event.dart';
-import 'package:ml_kit_test/bloc/text_scanner_state.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_event.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_state.dart';
 
 class TextScannerBloc extends Bloc<TextScannerEvent, TextScannerState> {
   TextScannerBloc() : super(TextScannerInitial()) {

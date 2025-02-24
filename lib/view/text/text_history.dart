@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ml_kit_test/bloc/text_scanner_bloc.dart';
-import 'package:ml_kit_test/bloc/text_scanner_event.dart';
-import 'package:ml_kit_test/bloc/text_scanner_state.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_bloc.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_event.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_state.dart';
 import 'package:ml_kit_test/constant/app_color.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class TextHistory extends StatefulWidget {
+  const TextHistory({super.key});
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
+  State<TextHistory> createState() => _TextHistoryState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _TextHistoryState extends State<TextHistory> {
   @override
   void initState() {
     super.initState();
