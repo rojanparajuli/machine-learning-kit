@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ml_kit_test/bloc/barcode/barcode_bloc.dart';
 import 'package:ml_kit_test/bloc/barcode/barcode_event.dart';
 import 'package:ml_kit_test/bloc/barcode/barcode_state.dart';
@@ -63,7 +64,11 @@ class BarcodeScannerScreen extends StatelessWidget {
           String barcodeText = "Scan barcode from an image or camera";
 
           if (state is BarcodeLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return  Center(child: SizedBox(
+              height: 400,
+              width: 400,
+              child: Lottie.asset('assets/anime.json'),
+            ));
           } else if (state is BarcodeLoaded) {
             image = state.imageFile;
             barcodeText = state.barcodeData;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ml_kit_test/bloc/label/label_bloc.dart';
 import 'package:ml_kit_test/bloc/label/lable_state.dart';
 import 'package:ml_kit_test/constant/app_color.dart';
@@ -157,7 +158,12 @@ class LabelScannerScreen extends StatelessWidget {
                           },
                         )
                       : state is LabelScannerLoading
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(
+                              child: SizedBox(
+                              height: 400,
+                              width: 400,
+                              child: Lottie.asset('assets/anime.json'),
+                            ))
                           : Center(
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
