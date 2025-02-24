@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ml_kit_test/constant/app_color.dart';
 
 class BarcodeHistoryScreen extends StatelessWidget {
@@ -43,7 +44,11 @@ class BarcodeHistoryScreen extends StatelessWidget {
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: SizedBox(
+              height: 400,
+              width: 400,
+              child: Lottie.asset('assets/anime.json'),
+            ));
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
