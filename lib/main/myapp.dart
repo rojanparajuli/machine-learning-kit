@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ml_kit_test/bloc/barcode/barcode_bloc.dart';
 import 'package:ml_kit_test/bloc/label/label_bloc.dart';
 import 'package:ml_kit_test/bloc/text/text_scanner_bloc.dart';
 import 'package:ml_kit_test/bloc/text/text_scanner_event.dart';
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => TextScannerBloc()..add(LoadHistoryEvent())),
          BlocProvider(
         create: (context) => LabelScannerCubit()),
+        BlocProvider(
+      create: (context) => BarcodeScannerBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
