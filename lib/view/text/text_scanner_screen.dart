@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ml_kit_test/bloc/text_scanner_bloc.dart';
-import 'package:ml_kit_test/bloc/text_scanner_event.dart';
-import 'package:ml_kit_test/bloc/text_scanner_state.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_bloc.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_event.dart';
+import 'package:ml_kit_test/bloc/text/text_scanner_state.dart';
 import 'package:ml_kit_test/constant/app_color.dart';
-import 'package:ml_kit_test/view/Text/text_history.dart';
+import 'package:ml_kit_test/view/text/text_history.dart';
 
 class TextScannerScreen extends StatelessWidget {
   const TextScannerScreen({super.key});
@@ -22,7 +22,8 @@ class TextScannerScreen extends StatelessWidget {
         backgroundColor: AppColor.primaryColor,
         title: const Text(
           "Text Scanner",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         actions: [
@@ -32,7 +33,7 @@ class TextScannerScreen extends StatelessWidget {
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const HistoryScreen())),
+                      builder: (context) => const TextHistory())),
               icon: const Icon(
                 Icons.history,
                 size: 30,
