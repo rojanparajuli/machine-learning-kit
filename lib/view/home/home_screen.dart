@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit_test/constant/app_color.dart';
 import 'package:ml_kit_test/view/barcode/barcode_scanner_screen.dart';
+import 'package:ml_kit_test/view/digitalInk/digital_ink_recognizer_view.dart';
 import 'package:ml_kit_test/view/document/document_recognizer_screen.dart';
 import 'package:ml_kit_test/view/face/face_detector_screen.dart';
 import 'package:ml_kit_test/view/label/lable_scanner_screen.dart';
@@ -39,6 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
       'title': 'Document Scanner',
       'screen': DocumentScannerScreen(),
       'icon': Icons.document_scanner
+    },
+       {
+      'title': 'Digital Ink Recognition',
+      'screen': DigitalInkView(),
+      'icon': Icons.edit
     },
   ];
 
