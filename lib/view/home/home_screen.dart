@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit_test/constant/app_color.dart';
 import 'package:ml_kit_test/view/barcode/barcode_scanner_screen.dart';
+import 'package:ml_kit_test/view/document/document_recognizer_screen.dart';
 import 'package:ml_kit_test/view/face/face_detector_screen.dart';
 import 'package:ml_kit_test/view/label/lable_scanner_screen.dart';
 import 'package:ml_kit_test/view/text/text_scanner_screen.dart';
@@ -33,6 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
       'title': 'Face Detection',
       'screen': FaceDetectionScreen(),
       'icon': Icons.face
+    },
+      {
+      'title': 'Document Scanner',
+      'screen': DocumentScannerScreen(),
+      'icon': Icons.document_scanner
     },
   ];
 
