@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ml_kit_test/bloc/document/document_bloc.dart';
 import 'package:ml_kit_test/bloc/document/document_event.dart';
@@ -11,6 +12,17 @@ class DocsHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void copyToClipboard(String text) {
+      Clipboard.setData(ClipboardData(text: text));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text("Copied to clipboard"),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -59,17 +71,33 @@ class DocsHistory extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                   title: Text(text),
                   subtitle: Text(formattedDate),
-                  trailing:
-                      BlocBuilder<DocumentScannerBloc, DocumentScannerState>(
-                    builder: (context, state) {
-                      return IconButton(
-                        icon: const Icon(Icons.download),
-                        onPressed: () {
-                          final bloc = context.read<DocumentScannerBloc>();
-                          bloc.add(SaveText(text));
-                        },
-                      );
-                    },
+                  trailing: SizedBox(
+                    width: 100, // Adjust width as needed
+                    child:
+                        BlocBuilder<DocumentScannerBloc, DocumentScannerState>(
+                      builder: (context, state) {
+                        return Row(
+                          mainAxisSize: MainAxisSize
+                              .min, // Ensures the row only takes necessary space
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.download),
+                              onPressed: () {
+                                final bloc =
+                                    context.read<DocumentScannerBloc>();
+                                bloc.add(SaveText(text));
+                              },
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                copyToClipboard(text);
+                              },
+                              icon: const Icon(Icons.copy),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               );

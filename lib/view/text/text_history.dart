@@ -25,6 +25,7 @@ class _TextHistoryState extends State<TextHistory> {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        backgroundColor: Colors.green,
         content: Text("Copied to clipboard"),
         duration: Duration(seconds: 2),
       ),
