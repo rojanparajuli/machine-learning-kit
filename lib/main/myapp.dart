@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ml_kit_test/bloc/barcode/barcode_bloc.dart';
+import 'package:ml_kit_test/bloc/document/document_bloc.dart';
 import 'package:ml_kit_test/bloc/face/face_bloc.dart';
 import 'package:ml_kit_test/bloc/label/label_bloc.dart';
 import 'package:ml_kit_test/bloc/text/text_scanner_bloc.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LabelScannerCubit()),
         BlocProvider(create: (context) => BarcodeScannerBloc()),
         BlocProvider(create: (context) => FaceDetectionBloc()),
+        BlocProvider(create: (context) => DocumentScannerBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

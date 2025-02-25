@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ml_kit_test/bloc/face/face_bloc.dart';
 import 'package:ml_kit_test/bloc/face/face_event.dart';
 import 'package:ml_kit_test/bloc/face/face_state.dart';
@@ -18,13 +19,16 @@ class FaceDetectionScreen extends StatelessWidget {
     if (pickedFile != null) {
       // print("Image Picked: ${pickedFile.path}");
       // ignore: use_build_context_synchronously
-      context.read<FaceDetectionBloc>().add(ProcessImageEvent(File(pickedFile.path)));
+      context
+          .read<FaceDetectionBloc>()
+          .add(ProcessImageEvent(File(pickedFile.path)));
     } else {
       // print("No image selected.");
     }
   }
 
-  Future<void> _showAddFaceDialog(BuildContext context, Map<String, dynamic> faceData) async {
+  Future<void> _showAddFaceDialog(
+      BuildContext context, Map<String, dynamic> faceData) async {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -38,8 +42,10 @@ class FaceDetectionScreen extends StatelessWidget {
           TextButton(
             onPressed: () {
               if (nameController.text.isNotEmpty) {
-                // print("Adding Face: ${nameController.text}, Data: $faceData"); 
-                context.read<FaceDetectionBloc>().add(AddFaceEvent(nameController.text, faceData));
+                // print("Adding Face: ${nameController.text}, Data: $faceData");
+                context
+                    .read<FaceDetectionBloc>()
+                    .add(AddFaceEvent(nameController.text, faceData));
                 Navigator.pop(context);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -66,7 +72,8 @@ class FaceDetectionScreen extends StatelessWidget {
         ),
         title: const Text(
           "Face Detection",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
         ),
         centerTitle: true,
         actions: [
@@ -83,14 +90,19 @@ class FaceDetectionScreen extends StatelessWidget {
       ),
       body: BlocListener<FaceDetectionBloc, FaceDetectionState>(
         listener: (context, state) {
-          // print("New State: $state"); 
+          // print("New State: $state");
         },
         child: BlocBuilder<FaceDetectionBloc, FaceDetectionState>(
           builder: (context, state) {
-            // print("Current UI State: $state"); 
+            // print("Current UI State: $state");
 
             if (state is FaceProcessing) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                  child: SizedBox(
+                height: 400,
+                width: 400,
+                child: Lottie.asset('assets/anime.json'),
+              ));
             } else if (state is FaceDetected) {
               return _buildFaceDetected(context, state);
             } else if (state is FaceExists) {
@@ -148,7 +160,7 @@ class FaceDetectionScreen extends StatelessWidget {
   }
 
   Widget _buildFaceExists(BuildContext context, FaceExists state) {
-    // print("Face Exists: ${state.faceData}"); 
+    // print("Face Exists: ${state.faceData}");
     return Center(
       child: Card(
         elevation: 4,
@@ -162,7 +174,8 @@ class FaceDetectionScreen extends StatelessWidget {
 
   Widget _buildInitialScreen() {
     return const Center(
-      child: Text("Pick an Image to Detect Faces", style: TextStyle(fontSize: 18)),
+      child:
+          Text("Pick an Image to Detect Faces", style: TextStyle(fontSize: 18)),
     );
   }
 }
