@@ -42,7 +42,7 @@ dependencies:
   lottie: ^3.3.1
   screenshot: ^3.0.0
   path_provider: ^2.1.5
-  # image_gallery_saver: ^2.0.3
+  google_mlkit_digital_ink_recognition: ^0.13.0
   permission_handler: ^11.4.0
 
 dev_dependencies:
