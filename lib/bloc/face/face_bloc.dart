@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ml_kit_test/bloc/face/face_event.dart';
-import 'package:ml_kit_test/bloc/face/face_state.dart';
+import 'face_event.dart';
+import 'face_state.dart';
 
 class FaceDetectionBloc extends Bloc<FaceDetectionEvent, FaceDetectionState> {
   FaceDetectionBloc() : super(FaceDetectionInitial()) {
@@ -13,7 +13,7 @@ class FaceDetectionBloc extends Bloc<FaceDetectionEvent, FaceDetectionState> {
 
   Future<void> _processImage(
       ProcessImageEvent event, Emitter<FaceDetectionState> emit) async {
-    emit(FaceProcessing()); // Start processing the image
+    emit(FaceProcessing());
 
     final inputImage = InputImage.fromFile(event.image);
     final faceFeaturesList = await _extractFaceFeatures(inputImage);
@@ -23,11 +23,11 @@ class FaceDetectionBloc extends Bloc<FaceDetectionEvent, FaceDetectionState> {
         final existingFace = await _checkFaceInDatabase(faceFeatures);
 
         if (existingFace != null) {
-          emit(FaceExists(existingFace)); // Face exists in Firebase
+          emit(FaceExists(existingFace)); 
           return;
         } else {
           emit(FaceDetected(event.image, faceFeaturesList.length, true, {
-            'features': faceFeatures, // New face detected
+            'features': faceFeatures,
           }));
           return;
         }
@@ -49,37 +49,35 @@ class FaceDetectionBloc extends Bloc<FaceDetectionEvent, FaceDetectionState> {
 
       if (storedFeatures != null) {
         List<double> storedFaceFeatures = List<double>.from(storedFeatures);
-        double similarity =
-            cosineSimilarity(newFaceFeatures, storedFaceFeatures);
+        double similarity = cosineSimilarity(newFaceFeatures, storedFaceFeatures);
 
         if (similarity >= similarityThreshold) {
-          return faceData; // Return existing face data
+          return faceData; 
         }
       }
     }
-    return null; // Face not found in Firebase
+    return null; 
   }
 
   Future<void> _addFaceToDatabase(
       AddFaceEvent event, Emitter<FaceDetectionState> emit) async {
     if (event.faceData['features'] == null) {
-      emit(FaceDetectionInitial()); // Reset state if face data is invalid
+      emit(FaceDetectionInitial());
       return;
     }
 
     await FirebaseFirestore.instance.collection('faces').add({
       'name': event.name,
-      'features': event.faceData['features'], // Add new face to Firebase
+      'features': event.faceData['features'],
     });
 
-    emit(FaceAdded()); // Face added successfully
-    emit(FaceDetectionInitial()); // Reset state after adding face
+    emit(FaceAdded());
+    emit(FaceDetectionInitial());
   }
 
   Future<List<List<double>>> _extractFaceFeatures(InputImage inputImage) async {
-    // ignore: deprecated_member_use
-    final faceDetector = GoogleMlKit.vision.faceDetector(
-      FaceDetectorOptions(enableContours: true, enableLandmarks: true),
+    final faceDetector = FaceDetector(
+      options: FaceDetectorOptions(enableContours: true, enableLandmarks: true),
     );
 
     final faces = await faceDetector.processImage(inputImage);
@@ -91,22 +89,16 @@ class FaceDetectionBloc extends Bloc<FaceDetectionEvent, FaceDetectionState> {
       List<double> features = [];
 
       if (face.landmarks[FaceLandmarkType.noseBase] != null) {
-        features.add(
-            face.landmarks[FaceLandmarkType.noseBase]!.position.x.toDouble());
-        features.add(
-            face.landmarks[FaceLandmarkType.noseBase]!.position.y.toDouble());
+        features.add(face.landmarks[FaceLandmarkType.noseBase]!.position.x.toDouble());
+        features.add(face.landmarks[FaceLandmarkType.noseBase]!.position.y.toDouble());
       }
       if (face.landmarks[FaceLandmarkType.leftEye] != null) {
-        features.add(
-            face.landmarks[FaceLandmarkType.leftEye]!.position.x.toDouble());
-        features.add(
-            face.landmarks[FaceLandmarkType.leftEye]!.position.y.toDouble());
+        features.add(face.landmarks[FaceLandmarkType.leftEye]!.position.x.toDouble());
+        features.add(face.landmarks[FaceLandmarkType.leftEye]!.position.y.toDouble());
       }
       if (face.landmarks[FaceLandmarkType.rightEye] != null) {
-        features.add(
-            face.landmarks[FaceLandmarkType.rightEye]!.position.x.toDouble());
-        features.add(
-            face.landmarks[FaceLandmarkType.rightEye]!.position.y.toDouble());
+        features.add(face.landmarks[FaceLandmarkType.rightEye]!.position.x.toDouble());
+        features.add(face.landmarks[FaceLandmarkType.rightEye]!.position.y.toDouble());
       }
 
       if (features.isNotEmpty) {

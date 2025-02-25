@@ -1,6 +1,6 @@
 import 'dart:io';
 
-abstract class FaceDetectionEvent {
+abstract class FaceDetectionEvent  {
   List<Object?> get props => [];
 }
 
