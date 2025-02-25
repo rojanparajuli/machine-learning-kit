@@ -5,6 +5,7 @@ import 'package:ml_kit_test/view/digitalInk/digital_ink_recognizer_view.dart';
 import 'package:ml_kit_test/view/document/document_recognizer_screen.dart';
 import 'package:ml_kit_test/view/face/face_detector_screen.dart';
 import 'package:ml_kit_test/view/label/lable_scanner_screen.dart';
+import 'package:ml_kit_test/view/pose/pose_detection_screen.dart';
 import 'package:ml_kit_test/view/text/text_scanner_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,15 +37,20 @@ class _HomeScreenState extends State<HomeScreen> {
       'screen': FaceDetectionScreen(),
       'icon': Icons.face
     },
-      {
+    {
       'title': 'Document Scanner',
       'screen': DocumentScannerScreen(),
       'icon': Icons.document_scanner
     },
-       {
+    {
       'title': 'Digital Ink Recognition',
       'screen': DigitalInkView(),
       'icon': Icons.edit
+    },
+    {
+      'title': 'Pose Detection',
+      'screen': PoseDetectionScreen(),
+      'icon': Icons.accessibility
     },
   ];
 
@@ -62,10 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-           Opacity(
-            opacity: 0.1, 
+          Opacity(
+            opacity: 0.1,
             child: Image.asset(
-              'assets/logo-vertical.png', 
+              'assets/logo-vertical.png',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.cover,

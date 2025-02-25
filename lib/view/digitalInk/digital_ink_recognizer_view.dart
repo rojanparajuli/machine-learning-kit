@@ -32,8 +32,8 @@ class DigitalInkView extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: IconButton(
               onPressed: () => context.read<DigitalInkCubit>().clearCanvas(),
-              icon: const Icon(Icons.delete_forever,
-                  color: Colors.red, size: 40),
+              icon:
+                  const Icon(Icons.delete_forever, color: Colors.red, size: 40),
             ),
           )
         ],
