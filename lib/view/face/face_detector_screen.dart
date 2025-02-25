@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,10 +16,11 @@ class FaceDetectionScreen extends StatelessWidget {
   Future<void> _pickImage(BuildContext context, ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
     if (pickedFile != null) {
+      // print("Image Picked: ${pickedFile.path}");
       // ignore: use_build_context_synchronously
-      context
-          .read<FaceDetectionBloc>()
-          .add(ProcessImageEvent(File(pickedFile.path)));
+      context.read<FaceDetectionBloc>().add(ProcessImageEvent(File(pickedFile.path)));
+    } else {
+      // print("No image selected.");
     }
   }
 
@@ -28,27 +28,26 @@ class FaceDetectionScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Add New Face"),
+        title: const Text("Add New Face"),
         content: TextField(
           controller: nameController,
-          decoration: InputDecoration(hintText: "Enter Name"),
+          decoration: const InputDecoration(hintText: "Enter Name"),
           autofocus: true,
         ),
         actions: [
           TextButton(
             onPressed: () {
               if (nameController.text.isNotEmpty) {
-                context.read<FaceDetectionBloc>().add(
-                      AddFaceEvent(nameController.text, faceData),
-                    );
+                // print("Adding Face: ${nameController.text}, Data: $faceData"); 
+                context.read<FaceDetectionBloc>().add(AddFaceEvent(nameController.text, faceData));
                 Navigator.pop(context);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Name cannot be empty")),
+                  const SnackBar(content: Text("Name cannot be empty")),
                 );
               }
             },
-            child: Text("Add"),
+            child: const Text("Add"),
           ),
         ],
       ),
@@ -62,39 +61,44 @@ class FaceDetectionScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColor.primaryColor,
         leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Icon(Icons.arrow_back_ios_new)),
-        title: Text(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(Icons.arrow_back_ios_new),
+        ),
+        title: const Text(
           "Face Detection",
-          style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.list, color: Colors.black, size: 30),
+            icon: const Icon(Icons.list, color: Colors.black, size: 30),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => FaceDetailListScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => FaceDetailListScreen()),
               );
             },
           ),
         ],
       ),
-      body: BlocBuilder<FaceDetectionBloc, FaceDetectionState>(
-        builder: (context, state) {
-          if (state is FaceProcessing) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is FaceDetected) {
-            return _buildFaceDetected(context, state);
-          } else if (state is FaceExists) {
-            return _buildFaceExists(context, state);
-          }
-          return _buildInitialScreen();
+      body: BlocListener<FaceDetectionBloc, FaceDetectionState>(
+        listener: (context, state) {
+          // print("New State: $state"); 
         },
+        child: BlocBuilder<FaceDetectionBloc, FaceDetectionState>(
+          builder: (context, state) {
+            // print("Current UI State: $state"); 
+
+            if (state is FaceProcessing) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is FaceDetected) {
+              return _buildFaceDetected(context, state);
+            } else if (state is FaceExists) {
+              return _buildFaceExists(context, state);
+            }
+            return _buildInitialScreen();
+          },
+        ),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -103,14 +107,14 @@ class FaceDetectionScreen extends StatelessWidget {
             onPressed: () => _pickImage(context, ImageSource.gallery),
             heroTag: 'gallery',
             tooltip: 'Pick from Gallery',
-            child: Icon(Icons.image),
+            child: const Icon(Icons.image),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () => _pickImage(context, ImageSource.camera),
             heroTag: 'camera',
             tooltip: 'Capture from Camera',
-            child: Icon(Icons.camera_alt),
+            child: const Icon(Icons.camera_alt),
           ),
         ],
       ),
@@ -118,27 +122,47 @@ class FaceDetectionScreen extends StatelessWidget {
   }
 
   Widget _buildFaceDetected(BuildContext context, FaceDetected state) {
-    return Column(
-      children: [
-        Center(child: Card(child: Text("Faces Detected: ${state.faceCount}"))),
-        if (state.isNewFace)
-          ElevatedButton(
-            onPressed: () => _showAddFaceDialog(context, state.faceData!),
-            child: Text("Add Face"),
+    // print("Face Detected: ${state.faceCount} faces, Data: ${state.faceData}");
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Card(
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text("Faces Detected: ${state.faceCount}"),
+            ),
           ),
-      ],
+          const SizedBox(height: 10),
+          if (state.isNewFace && state.faceData != null)
+            ElevatedButton(
+              onPressed: () => _showAddFaceDialog(context, state.faceData!),
+              child: const Text("Add Face"),
+            )
+          else
+            const Text("Face already exists in the database."),
+        ],
+      ),
     );
   }
 
   Widget _buildFaceExists(BuildContext context, FaceExists state) {
-    return Column(
-      children: [
-        Center(child: Text("Face Found: ${state.faceData['name']}")),
-      ],
+    // print("Face Exists: ${state.faceData}"); 
+    return Center(
+      child: Card(
+        elevation: 4,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text("Face Found: ${state.faceData['name']}"),
+        ),
+      ),
     );
   }
 
   Widget _buildInitialScreen() {
-    return Center(child: Text("Pick an Image"));
+    return const Center(
+      child: Text("Pick an Image to Detect Faces", style: TextStyle(fontSize: 18)),
+    );
   }
 }

@@ -15,12 +15,14 @@ class FaceDetected extends FaceDetectionState {
   final Map<String, dynamic>? faceData;
 
   FaceDetected(this.image, this.faceCount, this.isNewFace, this.faceData);
+
   @override
-  List<Object?> get props => [image, faceCount, isNewFace, faceData]; 
-  }
+  List<Object?> get props => [image, faceCount, isNewFace, faceData];
+}
 
 class FaceExists extends FaceDetectionState {
   final Map<String, dynamic> faceData;
+
   FaceExists(this.faceData);
 
   @override
