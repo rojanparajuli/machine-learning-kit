@@ -5,7 +5,9 @@ import 'package:ml_kit_test/bloc/digitalInk/digital_ink_cubit.dart';
 import 'package:ml_kit_test/bloc/document/document_bloc.dart';
 import 'package:ml_kit_test/bloc/face/face_bloc.dart';
 import 'package:ml_kit_test/bloc/label/label_bloc.dart';
+import 'package:ml_kit_test/bloc/objectsegment/object_bloc.dart';
 import 'package:ml_kit_test/bloc/pose/pose_bloc.dart';
+import 'package:ml_kit_test/bloc/selfiesegment/selfie_bloc.dart';
 import 'package:ml_kit_test/bloc/text/text_scanner_bloc.dart';
 import 'package:ml_kit_test/bloc/text/text_scanner_event.dart';
 import 'package:ml_kit_test/view/home/home_screen.dart';
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DocumentScannerBloc()),
         BlocProvider(create: (_) => DigitalInkCubit()),
         BlocProvider(create: (_) => PoseBloc()),
+        BlocProvider(create: (context) => SelfieSegmentBloc()),
+        BlocProvider(create: (context) => SegmentationBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
