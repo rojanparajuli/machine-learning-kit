@@ -6,6 +6,7 @@ import 'package:ml_kit_test/view/document/document_recognizer_screen.dart';
 import 'package:ml_kit_test/view/face/face_detector_screen.dart';
 import 'package:ml_kit_test/view/label/lable_scanner_screen.dart';
 import 'package:ml_kit_test/view/languageDetector/language_detector.dart';
+import 'package:ml_kit_test/view/languageTranslator/language_translator_view.dart';
 import 'package:ml_kit_test/view/pose/pose_detection_screen.dart';
 import 'package:ml_kit_test/view/selfiesegment/selfie_segment_screen.dart';
 import 'package:ml_kit_test/view/smartReply/smart_reply_screen.dart';
@@ -56,25 +57,26 @@ class _HomeScreenState extends State<HomeScreen> {
       'screen': PoseDetectionScreen(),
       'icon': Icons.accessibility
     },
-     {
+    {
       'title': 'subject segmentation',
       'screen': SubjectSegmentationScreen(),
       'icon': Icons.data_object
     },
-      {
+    {
       'title': 'Selfie segmentation',
       'screen': SelfieSegmentationScreen(),
       'icon': Icons.person
     },
-      {
-      'title': 'Smart Reply',
-      'screen': SmartReplyView(),
-      'icon': Icons.reply
-    },
-      {
+    {'title': 'Smart Reply', 'screen': SmartReplyView(), 'icon': Icons.reply},
+    {
       'title': 'Language Detector',
       'screen': LanguageDetectorScreen(),
       'icon': Icons.language
+    },
+    {
+      'title': 'Language Translator',
+      'screen': LanguageTranslatorScreen(),
+      'icon': Icons.translate
     },
   ];
 

@@ -45,7 +45,9 @@ class LanguageDetectorScreen extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.file(state.image!,
-                          height: 250, width: double.infinity, fit: BoxFit.cover),
+                          height: 250,
+                          width: double.infinity,
+                          fit: BoxFit.cover),
                     ),
                   ),
                 const SizedBox(height: 20),
@@ -69,7 +71,9 @@ class LanguageDetectorScreen extends StatelessWidget {
                     ],
                   ),
                   child: Text(
-                    state.detectedText.isNotEmpty ? state.detectedText : 'No text detected',
+                    state.detectedText.isNotEmpty
+                        ? state.detectedText
+                        : 'No text detected',
                     style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.center,
                   ),
@@ -80,11 +84,13 @@ class LanguageDetectorScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  state.detectedLanguage.isNotEmpty ? state.detectedLanguage : 'Unknown',
+                  state.detectedLanguage.isNotEmpty
+                      ? state.detectedLanguage
+                      : 'Unknown',
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent,
+                    color: Colors.green,
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -115,12 +121,20 @@ class LanguageDetectorScreen extends StatelessWidget {
   }
 
   Widget _buildImageButton(BuildContext context,
-      {required IconData icon, required String label, required ImageSource source}) {
+      {required IconData icon,
+      required String label,
+      required ImageSource source}) {
     return ElevatedButton.icon(
       onPressed: () => context.read<LanguageDetectorCubit>().pickImage(source),
-      icon: Icon(icon, size: 24),
-      label: Text(label, style: const TextStyle(fontSize: 16)),
+      icon: Icon(
+        icon,
+        size: 24,
+        color: Colors.white,
+      ),
+      label: Text(label,
+          style: const TextStyle(fontSize: 16, color: Colors.white)),
       style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         textStyle: const TextStyle(fontWeight: FontWeight.bold),
         elevation: 3,
