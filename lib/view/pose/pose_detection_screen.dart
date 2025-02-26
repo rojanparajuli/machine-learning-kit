@@ -102,6 +102,7 @@ class PoseDetectionScreenState extends State<PoseDetectionScreen> {
                   onPressed: () async {
                     final imageFile = await _captureImage(ImageSource.camera);
                     if (imageFile != null) {
+                      // ignore: use_build_context_synchronously
                       context.read<PoseBloc>().add(CaptureImage(imageFile));
                     }
                   },
@@ -112,6 +113,7 @@ class PoseDetectionScreenState extends State<PoseDetectionScreen> {
                   onPressed: () async {
                     final imageFile = await _captureImage(ImageSource.gallery);
                     if (imageFile != null) {
+                      // ignore: use_build_context_synchronously
                       context.read<PoseBloc>().add(CaptureImage(imageFile));
                     }
                   },
