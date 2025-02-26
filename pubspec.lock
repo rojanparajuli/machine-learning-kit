@@ -368,6 +368,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.0"
+  google_mlkit_subject_segmentation:
+    dependency: "direct main"
+    description:
+      name: google_mlkit_subject_segmentation
+      sha256: c2c956ce7889fad764e18a81aa1bcc64d7bdb3d8ae7eb666da98297a6fb3b5d0
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   google_mlkit_text_recognition:
     dependency: transitive
     description:
@@ -400,6 +408,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  image:
+    dependency: "direct main"
+    description:
+      name: image
+      sha256: "13d3349ace88f12f4a0d175eb5c12dcdd39d35c4c109a8a13dfeb6d0bd9e31c3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.3"
   image_picker:
     dependency: "direct main"
     description:
@@ -648,6 +664,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
   platform:
     dependency: transitive
     description:
@@ -789,6 +813,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.0"
 sdks:
   dart: ">=3.6.1 <4.0.0"
   flutter: ">=3.27.0"

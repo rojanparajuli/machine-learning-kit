@@ -6,6 +6,8 @@ import 'package:ml_kit_test/view/document/document_recognizer_screen.dart';
 import 'package:ml_kit_test/view/face/face_detector_screen.dart';
 import 'package:ml_kit_test/view/label/lable_scanner_screen.dart';
 import 'package:ml_kit_test/view/pose/pose_detection_screen.dart';
+import 'package:ml_kit_test/view/selfiesegment/selfie_segment_screen.dart';
+import 'package:ml_kit_test/view/subjectsegment/subject_segment_screen.dart';
 import 'package:ml_kit_test/view/text/text_scanner_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,6 +53,16 @@ class _HomeScreenState extends State<HomeScreen> {
       'title': 'Pose Detection',
       'screen': PoseDetectionScreen(),
       'icon': Icons.accessibility
+    },
+     {
+      'title': 'subject segmentation',
+      'screen': SubjectSegmentationScreen(),
+      'icon': Icons.data_object
+    },
+      {
+      'title': 'Selfie segmentation',
+      'screen': SelfieSegmentationScreen(),
+      'icon': Icons.person
     },
   ];
 
