@@ -5,6 +5,7 @@ import 'package:ml_kit_test/bloc/digitalInk/digital_ink_cubit.dart';
 import 'package:ml_kit_test/bloc/document/document_bloc.dart';
 import 'package:ml_kit_test/bloc/face/face_bloc.dart';
 import 'package:ml_kit_test/bloc/label/label_bloc.dart';
+import 'package:ml_kit_test/bloc/language_detector/language_detector_cubit.dart';
 import 'package:ml_kit_test/bloc/objectsegment/object_bloc.dart';
 import 'package:ml_kit_test/bloc/pose/pose_bloc.dart';
 import 'package:ml_kit_test/bloc/selfiesegment/selfie_bloc.dart';
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SegmentationBloc()),
         BlocProvider(
       create: (context) => SmartReplyCubit()),
+      BlocProvider(
+      create: (_) => LanguageDetectorCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
