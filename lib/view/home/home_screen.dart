@@ -5,6 +5,7 @@ import 'package:ml_kit_test/view/digitalInk/digital_ink_recognizer_view.dart';
 import 'package:ml_kit_test/view/document/document_recognizer_screen.dart';
 import 'package:ml_kit_test/view/face/face_detector_screen.dart';
 import 'package:ml_kit_test/view/label/lable_scanner_screen.dart';
+import 'package:ml_kit_test/view/languageDetector/language_detector.dart';
 import 'package:ml_kit_test/view/pose/pose_detection_screen.dart';
 import 'package:ml_kit_test/view/selfiesegment/selfie_segment_screen.dart';
 import 'package:ml_kit_test/view/smartReply/smart_reply_screen.dart';
@@ -69,6 +70,11 @@ class _HomeScreenState extends State<HomeScreen> {
       'title': 'Smart Reply',
       'screen': SmartReplyView(),
       'icon': Icons.reply
+    },
+      {
+      'title': 'Language Detector',
+      'screen': LanguageDetectorScreen(),
+      'icon': Icons.language
     },
   ];
 
