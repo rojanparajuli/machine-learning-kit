@@ -1,16 +1,16 @@
 import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ml_kit_test/bloc/language_translator/language_translator_event.dart';
-import 'package:ml_kit_test/bloc/language_translator/language_translator_state.dart';
+import 'language_translator_event.dart';
+import 'language_translator_state.dart';
 
 class TranslatorBloc extends Bloc<TranslatorEvent, TranslatorState> {
   File? image;
   final ImagePicker _picker = ImagePicker();
   final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
   late OnDeviceTranslator onDeviceTranslator;
+
   final Map<String, TranslateLanguage> languages = {
     'English': TranslateLanguage.english,
     'Spanish': TranslateLanguage.spanish,
@@ -19,9 +19,12 @@ class TranslatorBloc extends Bloc<TranslatorEvent, TranslatorState> {
     'Hindi': TranslateLanguage.hindi,
     'Russian': TranslateLanguage.russian,
   };
+
   String selectedLanguage = 'Spanish';
 
   TranslatorBloc() : super(TranslatorInitial()) {
+    _updateTranslator();
+
     on<PickImageEvent>((event, emit) async {
       final pickedFile = await _picker.pickImage(source: event.source);
       if (pickedFile != null) {

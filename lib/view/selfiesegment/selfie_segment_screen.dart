@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ml_kit_test/bloc/selfiesegment/selfie_bloc.dart';
 import 'package:ml_kit_test/bloc/selfiesegment/selfie_event.dart';
 import 'package:ml_kit_test/bloc/selfiesegment/selfie_state.dart';
+import 'package:ml_kit_test/constant/app_color.dart';
 
 class SelfieSegmentationScreen extends StatelessWidget {
   const SelfieSegmentationScreen({super.key});
@@ -12,13 +13,14 @@ class SelfieSegmentationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.primaryColor,
       appBar: AppBar(
         title: const Text(
           'Selfie Segmentation',
           style: TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColor.primaryColor,
         centerTitle: true,
         elevation: 4,
         leading: IconButton(
@@ -29,7 +31,8 @@ class SelfieSegmentationScreen extends StatelessWidget {
       body: BlocBuilder<SelfieSegmentBloc, SelfieSegmentState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
             child: Column(
               children: [
                 Expanded(
@@ -55,9 +58,11 @@ class SelfieSegmentationScreen extends StatelessWidget {
                                 ? Text(state.message,
                                     style: const TextStyle(
                                         color: Colors.red, fontSize: 16))
-                                : const Text("Pick an image to start segmentation",
+                                : const Text(
+                                    "Pick an image to start segmentation",
                                     style: TextStyle(
-                                        fontSize: 16, fontWeight: FontWeight.w500)),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -87,17 +92,25 @@ class SelfieSegmentationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildButton({required IconData icon, required String label, required VoidCallback onTap}) {
+  Widget _buildButton(
+      {required IconData icon,
+      required String label,
+      required VoidCallback onTap}) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         elevation: 5,
       ),
-      icon: Icon(icon, size: 24),
-      label: Text(label, style: const TextStyle(fontSize: 16)),
+      icon: Icon(
+        icon,
+        size: 24,
+        color: Colors.white,
+      ),
+      label: Text(label,
+          style: const TextStyle(fontSize: 16, color: Colors.white)),
       onPressed: onTap,
     );
   }
@@ -114,7 +127,8 @@ class MaskPainter extends CustomPainter {
       ..filterQuality = FilterQuality.high
       ..blendMode = BlendMode.srcATop;
 
-    final srcRect = Rect.fromLTWH(0, 0, maskImage.width.toDouble(), maskImage.height.toDouble());
+    final srcRect = Rect.fromLTWH(
+        0, 0, maskImage.width.toDouble(), maskImage.height.toDouble());
     final dstRect = Rect.fromLTWH(0, 0, size.width, size.height);
 
     canvas.drawImageRect(maskImage, srcRect, dstRect, paint);
