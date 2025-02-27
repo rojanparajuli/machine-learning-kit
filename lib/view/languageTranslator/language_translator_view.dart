@@ -7,7 +7,9 @@ import 'package:ml_kit_test/bloc/language_translator/language_translator_state.d
 import 'package:ml_kit_test/constant/app_color.dart';
 
 class LanguageTranslatorScreen extends StatelessWidget {
-  const LanguageTranslatorScreen({super.key});
+  LanguageTranslatorScreen({super.key});
+
+  final TextEditingController textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +17,7 @@ class LanguageTranslatorScreen extends StatelessWidget {
       backgroundColor: AppColor.primaryColor,
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
         ),
         backgroundColor: AppColor.primaryColor,
@@ -40,9 +40,7 @@ class LanguageTranslatorScreen extends StatelessWidget {
             BlocBuilder<TranslatorBloc, TranslatorState>(
               builder: (context, state) {
                 if (state is TranslatingState) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const Center(child: CircularProgressIndicator());
                 } else if (state is TranslatedState) {
                   return Text(
                     state.translatedText,
@@ -101,19 +99,24 @@ class LanguageTranslatorScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: textController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 hintText: 'Enter text to translate',
                 filled: true,
                 fillColor: Colors.white,
               ),
-              onSubmitted: (text) => context.read<TranslatorBloc>().add(TranslateTextEvent(text)),
             ),
             const SizedBox(height: 20),
             _blackButton(
               label: 'Translate',
               icon: Icons.translate,
-              onPressed: () => context.read<TranslatorBloc>().add(TranslateTextEvent('Test text')),
+              onPressed: () {
+                String inputText = textController.text.trim();
+                if (inputText.isNotEmpty) {
+                  context.read<TranslatorBloc>().add(TranslateTextEvent(inputText));
+                }
+              },
             ),
           ],
         ),
